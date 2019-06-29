@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+
+<label for='upload_file'>Upload unknown word list:</label>
+<input type='file' id='upload_file' />
+<br>
+<br>
+<label for='unknown_words'>Unknown words:</label>
+<table id="unknown_words"/>
+
+<script>
+$("#upload_file").bind("change", function() {
+  var files = $(this).prop('files');
+  if (
+    files &&
+    files.length
+  ) {
+    var file = files[0];
+    if (file) {
+      // create reader
+      var reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = processFileContents;
+
+      $(this).val('');
+    }
+  }
+});
+
+processFileContents = function(file) {
+  var contents = file.target.result;
+  if (!contents) return;
+
+  contents = contents.split('\n');
+  var words = [];
+  for (var i = 0, len = contents.length; i < len; i++) {
+    var requestUrl = "https://api.wordnik.com/v4/word.json/" + contents[i] + "/definitions?limit=200&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=c23b746d074135dc9500c0a61300a3cb7647e53ec2b9b658e";
+    var word = processWord(requestUrl);
+    if(word && word.length) {
+    words[words.length] = word;
+    } else {
+    	$("#unknown_words").append("<tr><td>" + contents[i] + "</td></tr>");
+    }
+  }
+  var file = createFile(words);
+downloadFile(file,"dictionary_auto.txt");
+};
+
+processWord = function(requestUrl) {
+  $.ajaxSetup({
+    async: false
+  });
+  var word = [];
+  $.getJSON(requestUrl, function(data) {
+    //console.log(data);
+    $.each(data, function(key, val) {
+      //console.log(val);
+      if (val && val.text) {
+        var definition = [];
+        definition[0] = val.word;
+        definition[1] = val.partOfSpeech;
+        definition[2] = val.text;
+        word[word.length] = definition;
+      }
+    });
+  });
+  //console.log(word);
+  return word;
+}
+
+createFile = function(words) {
+  var file = "";
+  for (let word of words) {
+    file += "{";
+    for (let wordPart of word) {
+      file += '{"' + wordPart[0] + '","' + wordPart[1] + '"} -> "' + wordPart[2] + '",';
+    }
+    if (file[file.length - 1] == ",") file = file.substring(0, file.length - 1);
+    file += "}";
+    file += "\n";
+  }
+  if (file[file.length - 1] == "\n") file = file.substring(0, file.length - 1);
+  //console.log(file);
+  return file;
+}
+
+downloadFile = function(strContents, fileName) {
+  var blob = new Blob([strContents], {
+      type: 'text/plain'
+    });
+    var anchor = document.createElement('a');
+
+  anchor.download = fileName;
+  anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+  anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+  anchor.click();
+}
+
+</script>
+
+</body>
+</html>

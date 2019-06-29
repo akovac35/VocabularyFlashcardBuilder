@@ -1,0 +1,206 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      7533,        197]
+NotebookOptionsPosition[      7064,        177]
+NotebookOutlinePosition[      7408,        192]
+CellTagsIndexPosition[      7365,        189]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ctmuWords", "=", 
+   RowBox[{"ReadList", "[", 
+    RowBox[{
+     RowBox[{"FileNameJoin", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+        "\"\<input_text\\\\ctmu_words.txt\>\""}], "}"}], "]"}], ",", 
+     "String"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"directlyIncludedWords", "=", 
+   RowBox[{"DeleteDuplicates", "[", 
+    RowBox[{"ReadList", "[", 
+     RowBox[{
+      RowBox[{"FileNameJoin", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+         "\"\<input_text\\\\directly_included_words.txt\>\""}], "}"}], "]"}], 
+      ",", "String"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"commonEnglishWords", "=", 
+   RowBox[{"DeleteDuplicates", "[", 
+    RowBox[{"ReadList", "[", 
+     RowBox[{
+      RowBox[{"FileNameJoin", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+         "\"\<filters\\\\common_english_words.txt\>\""}], "}"}], "]"}], ",", 
+      "String"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"notInterestingWords", "=", 
+   RowBox[{"DeleteDuplicates", "[", 
+    RowBox[{"ReadList", "[", 
+     RowBox[{
+      RowBox[{"FileNameJoin", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+         "\"\<filters\\\\not_interesting_words.txt\>\""}], "}"}], "]"}], ",", 
+      "String"}], "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7706552249099865`*^9, 3.7706552399790325`*^9}, {
+  3.7706552707335405`*^9, 3.770655317687047*^9}, {3.7706554781823826`*^9, 
+  3.7706555438445597`*^9}, {3.770658355997159*^9, 3.770658365463391*^9}, {
+  3.770660484580064*^9, 3.7706605189142637`*^9}, {3.7706633065835743`*^9, 
+  3.77066334785035*^9}, {3.7707976155845785`*^9, 3.7707976572689624`*^9}, {
+  3.7707990208428802`*^9, 3.7707990209847517`*^9}, {3.7707991014522076`*^9, 
+  3.7707992105911274`*^9}, {3.7707992460842314`*^9, 3.7707992589553127`*^9}, {
+  3.7707993091158442`*^9, 3.7707993241848946`*^9}, {3.7707993771058736`*^9, 
+  3.7707993948824015`*^9}, {3.770799436945438*^9, 3.77079943955103*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ctmuWords", "=", 
+   RowBox[{"Sort", "[", 
+    RowBox[{"Select", "[", 
+     RowBox[{"ctmuWords", ",", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringLength", "[", "#", "]"}], "\[GreaterEqual]", "4"}], 
+       "&"}]}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"commonEnglishWords", "=", 
+   RowBox[{"Sort", "[", 
+    RowBox[{"Select", "[", 
+     RowBox[{"commonEnglishWords", ",", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringLength", "[", "#", "]"}], "\[GreaterEqual]", "4"}], 
+       "&"}]}], "]"}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7706556889601345`*^9, 3.770655693748702*^9}, {
+  3.7706557257450647`*^9, 3.7706558194522624`*^9}, {3.770655849816136*^9, 
+  3.770655863044882*^9}, {3.770799503966358*^9, 3.7707995143147697`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"interestingWords", "=", 
+   RowBox[{"Join", "[", "ctmuWords", "]"}]}], ";", 
+  RowBox[{"(*", 
+   RowBox[{"add", " ", "new", " ", "lists", " ", "here"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"interestingWords", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"interestingWords", ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Plus", "@@", 
+        RowBox[{"StringCount", "[", 
+         RowBox[{"commonEnglishWords", ",", 
+          RowBox[{"StartOfString", "~~", "#", "~~", "___"}]}], "]"}]}], 
+       "\[Equal]", "0"}], "&"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"interestingWords", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{"interestingWords", ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Plus", "@@", 
+        RowBox[{"StringCount", "[", 
+         RowBox[{"notInterestingWords", ",", 
+          RowBox[{"StartOfString", "~~", "#", "~~", "___"}]}], "]"}]}], 
+       "\[Equal]", "0"}], "&"}]}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.770656182166278*^9, 3.770656192931322*^9}, {
+  3.7706564459781284`*^9, 3.7706564575204363`*^9}, {3.7706565622883887`*^9, 
+  3.770656588737894*^9}, {3.77065662967297*^9, 3.770656630003664*^9}, {
+  3.770659139460432*^9, 3.7706591528550243`*^9}, {3.7706606532877927`*^9, 
+  3.770660683486844*^9}, {3.7706613172667823`*^9, 3.7706613305924397`*^9}, {
+  3.770663380029542*^9, 3.7706633933821735`*^9}, {3.770663469243902*^9, 
+  3.7706634729604597`*^9}, {3.770800223751707*^9, 3.770800255593212*^9}, {
+  3.770801143059894*^9, 3.770801146601613*^9}, {3.7708012022940245`*^9, 
+  3.770801212481588*^9}, {3.770801615918293*^9, 3.770801620640954*^9}, {
+  3.7708019341641035`*^9, 3.7708019470124493`*^9}, {3.770802057053271*^9, 
+  3.7708020867888255`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"interestingWords", "=", 
+   RowBox[{"Sort", "[", 
+    RowBox[{"DeleteDuplicates", "[", 
+     RowBox[{"Join", "[", 
+      RowBox[{"interestingWords", ",", "directlyIncludedWords"}], "]"}], 
+     "]"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.770663454308737*^9, 3.770663465558316*^9}, {
+  3.7706653167190084`*^9, 3.770665321310755*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+      "\"\<results\\\\interesting_words.txt\>\""}], "}"}], "]"}], ",", 
+   "interestingWords"}], "]"}]], "Input",
+ CellChangeTimes->{{3.770656677298854*^9, 3.7706566804009805`*^9}, {
+  3.77065922563811*^9, 3.770659229421607*^9}, {3.7706592789147596`*^9, 
+  3.7706593385625134`*^9}, {3.7707978038871574`*^9, 3.7707978053907657`*^9}, {
+  3.7707996017597694`*^9, 3.7707996187230625`*^9}}],
+
+Cell[BoxData["\<\"D:\\\\tmp\\\\philosophy\\\\results\\\\interesting_words.txt\
+\"\>"], "Output",
+ CellChangeTimes->{
+  3.770656680826586*^9, 3.7706584670063305`*^9, {3.77065931530305*^9, 
+   3.7706593391699457`*^9}, 3.7706607670014973`*^9, 3.770663536861268*^9, 
+   3.770664693243591*^9, 3.770665323211994*^9, 3.7707744743677607`*^9, {
+   3.7707977848258076`*^9, 3.770797808879525*^9}, 3.770799621607384*^9, 
+   3.770801683079253*^9, 3.7708017343327303`*^9, 3.770802154381665*^9, 
+   3.7708034781148777`*^9, 3.7708039513533726`*^9, 3.7708085612449193`*^9, 
+   3.770809293275673*^9, 3.770809392154077*^9, 3.7708097624871306`*^9, 
+   3.770825834471092*^9, 3.7708273341909785`*^9, 3.7708285108227835`*^9}]
+}, Open  ]]
+},
+WindowSize->{1130, 600},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 2230, 52, 92, "Input"],
+Cell[2790, 74, 825, 21, 52, "Input"],
+Cell[3618, 97, 1766, 38, 72, "Input"],
+Cell[5387, 137, 378, 9, 31, "Input"],
+Cell[CellGroupData[{
+Cell[5790, 150, 553, 12, 31, "Input"],
+Cell[6346, 164, 702, 10, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
