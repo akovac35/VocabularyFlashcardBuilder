@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      7533,        197]
-NotebookOptionsPosition[      7064,        177]
-NotebookOutlinePosition[      7408,        192]
-CellTagsIndexPosition[      7365,        189]
+NotebookDataLength[      7942,        206]
+NotebookOptionsPosition[      7472,        186]
+NotebookOutlinePosition[      7816,        201]
+CellTagsIndexPosition[      7773,        198]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21,47 +21,51 @@ Notebook[{
 Cell[BoxData[{
  RowBox[{
   RowBox[{"ctmuWords", "=", 
-   RowBox[{"ReadList", "[", 
-    RowBox[{
-     RowBox[{"FileNameJoin", "[", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-        "\"\<input_text\\\\ctmu_words.txt\>\""}], "}"}], "]"}], ",", 
-     "String"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"directlyIncludedWords", "=", 
-   RowBox[{"DeleteDuplicates", "[", 
+   RowBox[{"ToLowerCase", "[", 
     RowBox[{"ReadList", "[", 
      RowBox[{
       RowBox[{"FileNameJoin", "[", 
        RowBox[{"{", 
         RowBox[{
          RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-         "\"\<input_text\\\\directly_included_words.txt\>\""}], "}"}], "]"}], 
-      ",", "String"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"commonEnglishWords", "=", 
-   RowBox[{"DeleteDuplicates", "[", 
-    RowBox[{"ReadList", "[", 
-     RowBox[{
-      RowBox[{"FileNameJoin", "[", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-         "\"\<filters\\\\common_english_words.txt\>\""}], "}"}], "]"}], ",", 
+         "\"\<input_text\\\\ctmu_words.txt\>\""}], "}"}], "]"}], ",", 
       "String"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
+  RowBox[{"directlyIncludedWords", "=", 
+   RowBox[{"ToLowerCase", "[", 
+    RowBox[{"DeleteDuplicates", "[", 
+     RowBox[{"ReadList", "[", 
+      RowBox[{
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+          "\"\<input_text\\\\directly_included_words.txt\>\""}], "}"}], "]"}],
+        ",", "String"}], "]"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"commonEnglishWords", "=", 
+   RowBox[{"ToLowerCase", "[", 
+    RowBox[{"DeleteDuplicates", "[", 
+     RowBox[{"ReadList", "[", 
+      RowBox[{
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+          "\"\<filters\\\\common_english_words.txt\>\""}], "}"}], "]"}], ",", 
+       "String"}], "]"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{"notInterestingWords", "=", 
-   RowBox[{"DeleteDuplicates", "[", 
-    RowBox[{"ReadList", "[", 
-     RowBox[{
-      RowBox[{"FileNameJoin", "[", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-         "\"\<filters\\\\not_interesting_words.txt\>\""}], "}"}], "]"}], ",", 
-      "String"}], "]"}], "]"}]}], ";"}]}], "Input",
+   RowBox[{"ToLowerCase", "[", 
+    RowBox[{"DeleteDuplicates", "[", 
+     RowBox[{"ReadList", "[", 
+      RowBox[{
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+          "\"\<filters\\\\not_interesting_words.txt\>\""}], "}"}], "]"}], ",",
+        "String"}], "]"}], "]"}], "]"}]}], ";"}]}], "Input",
  CellChangeTimes->{{3.7706552249099865`*^9, 3.7706552399790325`*^9}, {
   3.7706552707335405`*^9, 3.770655317687047*^9}, {3.7706554781823826`*^9, 
   3.7706555438445597`*^9}, {3.770658355997159*^9, 3.770658365463391*^9}, {
@@ -70,7 +74,8 @@ Cell[BoxData[{
   3.7707990208428802`*^9, 3.7707990209847517`*^9}, {3.7707991014522076`*^9, 
   3.7707992105911274`*^9}, {3.7707992460842314`*^9, 3.7707992589553127`*^9}, {
   3.7707993091158442`*^9, 3.7707993241848946`*^9}, {3.7707993771058736`*^9, 
-  3.7707993948824015`*^9}, {3.770799436945438*^9, 3.77079943955103*^9}}],
+  3.7707993948824015`*^9}, {3.770799436945438*^9, 3.77079943955103*^9}, {
+  3.771091653352043*^9, 3.7710916901779313`*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -97,11 +102,13 @@ Cell[BoxData[{
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"interestingWords", "=", 
-   RowBox[{"Join", "[", "ctmuWords", "]"}]}], ";", 
+  RowBox[{
+   RowBox[{"interestingWords", "=", 
+    RowBox[{"Join", "[", "ctmuWords", "]"}]}], ";"}], 
   RowBox[{"(*", 
-   RowBox[{"add", " ", "new", " ", "lists", " ", "here"}], "*)"}], 
-  "\[IndentingNewLine]", 
+   RowBox[{"add", " ", "new", " ", "lists", " ", "here"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{"interestingWords", "=", 
    RowBox[{"Select", "[", 
     RowBox[{"interestingWords", ",", 
@@ -162,8 +169,8 @@ Cell[BoxData[
   3.7706593385625134`*^9}, {3.7707978038871574`*^9, 3.7707978053907657`*^9}, {
   3.7707996017597694`*^9, 3.7707996187230625`*^9}}],
 
-Cell[BoxData["\<\"D:\\\\tmp\\\\philosophy\\\\results\\\\interesting_words.txt\
-\"\>"], "Output",
+Cell[BoxData["\<\"D:\\\\tmp\\\\VocabularyFlashcardBuilder\\\\results\\\\\
+interesting_words.txt\"\>"], "Output",
  CellChangeTimes->{
   3.770656680826586*^9, 3.7706584670063305`*^9, {3.77065931530305*^9, 
    3.7706593391699457`*^9}, 3.7706607670014973`*^9, 3.770663536861268*^9, 
@@ -172,10 +179,12 @@ Cell[BoxData["\<\"D:\\\\tmp\\\\philosophy\\\\results\\\\interesting_words.txt\
    3.770801683079253*^9, 3.7708017343327303`*^9, 3.770802154381665*^9, 
    3.7708034781148777`*^9, 3.7708039513533726`*^9, 3.7708085612449193`*^9, 
    3.770809293275673*^9, 3.770809392154077*^9, 3.7708097624871306`*^9, 
-   3.770825834471092*^9, 3.7708273341909785`*^9, 3.7708285108227835`*^9}]
+   3.770825834471092*^9, 3.7708273341909785`*^9, 3.7708285108227835`*^9, 
+   3.771086233671677*^9, 3.7710862729932575`*^9, 3.7710907921601534`*^9, 
+   3.771091100079536*^9, 3.771091709673868*^9}]
 }, Open  ]]
 },
-WindowSize->{1130, 600},
+WindowSize->{1480, 600},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
 FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
 StyleDefinitions->"Default.nb"
@@ -191,13 +200,13 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 2230, 52, 92, "Input"],
-Cell[2790, 74, 825, 21, 52, "Input"],
-Cell[3618, 97, 1766, 38, 72, "Input"],
-Cell[5387, 137, 378, 9, 31, "Input"],
+Cell[557, 20, 2472, 57, 92, "Input"],
+Cell[3032, 79, 825, 21, 52, "Input"],
+Cell[3860, 102, 1794, 40, 72, "Input"],
+Cell[5657, 144, 378, 9, 31, "Input"],
 Cell[CellGroupData[{
-Cell[5790, 150, 553, 12, 31, "Input"],
-Cell[6346, 164, 702, 10, 30, "Output"]
+Cell[6060, 157, 553, 12, 31, "Input"],
+Cell[6616, 171, 840, 12, 30, "Output"]
 }, Open  ]]
 }
 ]

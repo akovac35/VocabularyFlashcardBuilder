@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      7846,        207]
-NotebookOptionsPosition[      7305,        184]
-NotebookOutlinePosition[      7649,        199]
-CellTagsIndexPosition[      7606,        196]
+NotebookDataLength[     10857,        269]
+NotebookOptionsPosition[     10348,        247]
+NotebookOutlinePosition[     10693,        262]
+CellTagsIndexPosition[     10650,        259]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -37,56 +37,98 @@ Cell[BoxData[
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"interestingWordsDefinitions", "=", 
-   RowBox[{
+  RowBox[{
+   RowBox[{"interestingWordsDefinitions", "=", 
     RowBox[{
-     RowBox[{"WordData", "[", 
-      RowBox[{"#", ",", "\"\<Definitions\>\""}], "]"}], "&"}], "/@", 
-    "interestingWords"}]}], ";"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"WordData", "[", 
+       RowBox[{"#", ",", "\"\<Definitions\>\""}], "]"}], "&"}], "/@", 
+     "interestingWords"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{"Obtain", " ", "word", " ", "definitions"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"unknownWords", "=", 
-   RowBox[{
+  RowBox[{
+   RowBox[{"unknownWords", "=", 
+    RowBox[{
+     RowBox[{"Select", "[", 
+      RowBox[{"interestingWordsDefinitions", ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "0", "]"}], "]"}], "==", "WordData"}], "&"}]}], "]"}], 
+     "[", 
+     RowBox[{"[", 
+      RowBox[{"All", ",", "1"}], "]"}], "]"}]}], ";", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Create", " ", "a", " ", "list", " ", "of", " ", "words", " ", "for", " ",
+      "which", " ", "Wolfram", " ", "definitions", " ", "do", " ", "not", " ",
+      "exist"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"interestingWordsDefinitions", "=", 
     RowBox[{"Select", "[", 
      RowBox[{"interestingWordsDefinitions", ",", 
       RowBox[{
        RowBox[{
         RowBox[{"#", "[", 
-         RowBox[{"[", "0", "]"}], "]"}], "==", "WordData"}], "&"}]}], "]"}], 
-    "[", 
-    RowBox[{"[", 
-     RowBox[{"All", ",", "1"}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"interestingWordsDefinitions", "=", 
-   RowBox[{"Select", "[", 
-    RowBox[{"interestingWordsDefinitions", ",", 
-     RowBox[{
+         RowBox[{"[", "0", "]"}], "]"}], "==", "List"}], "&"}]}], "]"}]}], 
+   ";", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Create", " ", "a", " ", "list", " ", "of", " ", "word", " ", 
+     "definitions"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"interestingWordsDefinitions", "=", 
+    RowBox[{"Join", "[", 
+     RowBox[{"interestingWordsDefinitions", ",", 
+      RowBox[{"ToExpression", "[", 
+       RowBox[{"Import", "[", 
+        RowBox[{
+         RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+            "\"\<external_definitions\\\\dictionary_auto.txt\>\""}], "}"}], 
+          "]"}], ",", "\"\<List\>\""}], "]"}], "]"}], ",", 
+      RowBox[{"ToExpression", "[", 
+       RowBox[{"Import", "[", 
+        RowBox[{
+         RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+            "\"\<external_definitions\\\\dictionary_manual.txt\>\""}], "}"}], 
+          "]"}], ",", "\"\<List\>\""}], "]"}], "]"}]}], "]"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{"Merge", " ", "external", " ", "word", " ", "definitions"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "Remove", " ", "duplicate", " ", "definitions", " ", "based", " ", "on", 
+     " ", 
+     RowBox[{"keyword", ".", " ", "Will"}], " ", "remove", " ", "word", " ", 
+     "information", " ", "if", " ", "it", " ", "is", " ", "defined", " ", 
+     "in", " ", "mulitiple", " ", "definition", " ", "entries"}], ",", " ", 
+    RowBox[{"for", " ", "example", "\[IndentingNewLine]", 
+     RowBox[{"{", 
       RowBox[{
-       RowBox[{"#", "[", 
-        RowBox[{"[", "0", "]"}], "]"}], "==", "List"}], "&"}]}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"interestingWordsDefinitions", "=", 
-   RowBox[{"Join", "[", 
-    RowBox[{"interestingWordsDefinitions", ",", 
-     RowBox[{"ToExpression", "[", 
-      RowBox[{"Import", "[", 
        RowBox[{
-        RowBox[{"FileNameJoin", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-           "\"\<external_definitions\\\\dictionary_auto.txt\>\""}], "}"}], 
-         "]"}], ",", "\"\<List\>\""}], "]"}], "]"}], ",", 
-     RowBox[{"ToExpression", "[", 
-      RowBox[{"Import", "[", 
+        RowBox[{"{", 
+         RowBox[{"\"\<word\>\"", ",", "\"\<noun\>\""}], "}"}], " ", "-"}], 
+       " ", ">", " ", "\"\<def1\>\""}], "}"}], "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
        RowBox[{
-        RowBox[{"FileNameJoin", "[", 
-         RowBox[{"{", 
-          RowBox[{
-           RowBox[{"NotebookDirectory", "[", "]"}], ",", 
-           "\"\<external_definitions\\\\dictionary_manual.txt\>\""}], "}"}], 
-         "]"}], ",", "\"\<List\>\""}], "]"}], "]"}]}], "]"}]}], 
-  ";"}], "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{"\"\<word\>\"", ",", "\"\<verb\>\""}], "}"}], " ", "-"}], 
+       " ", ">", " ", "\"\<def2\>\""}], "}"}], "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"\"\<word\>\"", ",", "\"\<noun\>\""}], "}"}], " ", "-"}], 
+       " ", ">", " ", "\"\<def3\>\""}], "}"}]}]}], "\[IndentingNewLine]", 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"interestingWordsDefinitions", "=", 
    RowBox[{"DeleteDuplicates", "[", 
@@ -107,7 +149,12 @@ Cell[BoxData[{
      RowBox[{"interestingWordsDefinitions", "[", 
       RowBox[{"[", 
        RowBox[{"All", ",", "1", ",", "1", ",", "1"}], "]"}], "]"}]}], "]"}]}],
-   ";"}]}], "Input",
+   ";", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Prepare", " ", "a", " ", "list", " ", "of", " ", "words", " ", "for", " ",
+     "which", " ", "no", " ", "definition", " ", "was", " ", "found"}], 
+   "*)"}]}]}], "Input",
  CellChangeTimes->{{3.7706617464432354`*^9, 3.7706617990824747`*^9}, {
   3.77066212307336*^9, 3.770662169635229*^9}, {3.7706623777834206`*^9, 
   3.7706624096738763`*^9}, {3.7706624462599897`*^9, 3.770662446661618*^9}, {
@@ -116,7 +163,9 @@ Cell[BoxData[{
   3.770792307318108*^9, 3.770792337507159*^9}, {3.770792557881013*^9, 
   3.77079255965936*^9}, {3.7707978879822536`*^9, 3.770797911068867*^9}, {
   3.7707989229555535`*^9, 3.7707989636248846`*^9}, {3.7707996996530905`*^9, 
-  3.7707997466715403`*^9}}],
+  3.7707997466715403`*^9}, {3.7710917777418156`*^9, 3.771091969140519*^9}, {
+  3.7710920057825775`*^9, 3.7710921908061924`*^9}, {3.7710922254451017`*^9, 
+  3.77109224757161*^9}}],
 
 Cell[CellGroupData[{
 
@@ -128,17 +177,26 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"NotebookDirectory", "[", "]"}], ",", 
       "\"\<results\\\\interesting_words_definitions.txt\>\""}], "}"}], "]"}], 
-   ",", "interestingWordsDefinitions"}], "]"}]], "Input",
+   ",", 
+   RowBox[{"SortBy", "[", 
+    RowBox[{"interestingWordsDefinitions", ",", 
+     RowBox[{
+      RowBox[{"#", "[", 
+       RowBox[{"[", 
+        RowBox[{"1", ",", "1", ",", "1"}], "]"}], "]"}], "&"}]}], "]"}]}], 
+  "]"}]], "Input",
  CellChangeTimes->{{3.770656677298854*^9, 3.7706566804009805`*^9}, {
   3.77065922563811*^9, 3.770659229421607*^9}, {3.7706592789147596`*^9, 
   3.7706593385625134`*^9}, {3.7706624999422636`*^9, 3.7706625074203367`*^9}, {
   3.7706652383156347`*^9, 3.770665243548787*^9}, {3.770665277427405*^9, 
   3.770665281354767*^9}, {3.7707923963436575`*^9, 3.770792402391057*^9}, {
   3.770797936764082*^9, 3.7707979383166337`*^9}, {3.770799757151845*^9, 
-  3.7707997681566405`*^9}}],
+  3.7707997681566405`*^9}, {3.7710926494309516`*^9, 3.7710926548459435`*^9}, {
+  3.771092734494161*^9, 3.7710927347439256`*^9}, {3.7710927767110577`*^9, 
+  3.7710927780158434`*^9}, {3.7710928704941792`*^9, 3.7710928797735877`*^9}}],
 
-Cell[BoxData["\<\"D:\\\\tmp\\\\philosophy\\\\results\\\\interesting_words_\
-definitions.txt\"\>"], "Output",
+Cell[BoxData["\<\"D:\\\\tmp\\\\VocabularyFlashcardBuilder\\\\results\\\\\
+interesting_words_definitions.txt\"\>"], "Output",
  CellChangeTimes->{
   3.770656680826586*^9, 3.7706584670063305`*^9, {3.77065931530305*^9, 
    3.7706593391699457`*^9}, 3.7706607670014973`*^9, 3.7706625108151884`*^9, 
@@ -149,7 +207,11 @@ definitions.txt\"\>"], "Output",
    3.7708035409570684`*^9, 3.770803963571051*^9, 3.7708044316100054`*^9, 
    3.770808527772683*^9, 3.7708085656956577`*^9, 3.7708093407626815`*^9, 
    3.770809392310933*^9, 3.7708097666822395`*^9, 3.770825838785097*^9, 
-   3.7708273390815988`*^9, 3.7708285163612227`*^9}]
+   3.7708273390815988`*^9, 3.7708285163612227`*^9, 3.7710863020393476`*^9, 
+   3.7710907972324605`*^9, 3.771091105654376*^9, 3.771091197309471*^9, 
+   3.7710913349299955`*^9, 3.77109176141494*^9, 3.771092209900505*^9, 
+   3.771092251091346*^9, 3.7710926736105556`*^9, 3.7710927365562515`*^9, 
+   3.771092779329626*^9, 3.7710928813611174`*^9, 3.77109297516722*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -162,13 +224,13 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"NotebookDirectory", "[", "]"}], ",", 
       "\"\<results\\\\unknown_words.txt\>\""}], "}"}], "]"}], ",", 
-   "unknownWords"}], "]"}]], "Input",
+   RowBox[{"Sort", "[", "unknownWords", "]"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.7706654042279487`*^9, 3.770665474966423*^9}, {
   3.770797942954338*^9, 3.7707979451073437`*^9}, {3.7707997901972246`*^9, 
-  3.7707998242316985`*^9}}],
+  3.7707998242316985`*^9}, {3.7710926575983906`*^9, 3.771092661870432*^9}}],
 
-Cell[BoxData["\<\"D:\\\\tmp\\\\philosophy\\\\results\\\\unknown_words.txt\"\>\
-"], "Output",
+Cell[BoxData["\<\"D:\\\\tmp\\\\VocabularyFlashcardBuilder\\\\results\\\\\
+unknown_words.txt\"\>"], "Output",
  CellChangeTimes->{{3.7706651434934688`*^9, 3.770665166073552*^9}, 
    3.7706652036207705`*^9, {3.770665373492419*^9, 3.7706654420080185`*^9}, 
    3.770665476709804*^9, 3.770774890098795*^9, 3.7707925687599363`*^9, 
@@ -176,13 +238,14 @@ Cell[BoxData["\<\"D:\\\\tmp\\\\philosophy\\\\results\\\\unknown_words.txt\"\>\
    3.770799825142848*^9, 3.7708035419647846`*^9, 3.770803964298382*^9, 
    3.770804432463219*^9, 3.7708085284804864`*^9, 3.770808566255498*^9, 
    3.770809341377112*^9, 3.7708093923399076`*^9, 3.7708097674155645`*^9, 
-   3.770825839902057*^9, 3.770827339805398*^9, 3.770828517180993*^9}]
-}, Open  ]],
-
-Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.7707924282011504`*^9, 3.7707925472898216`*^9}}]
+   3.770825839902057*^9, 3.770827339805398*^9, 3.770828517180993*^9, 
+   3.771086302971488*^9, 3.771090798185567*^9, 3.7710911064356527`*^9, 
+   3.7710911979838514`*^9, 3.7710913357582254`*^9, 3.7710917621892223`*^9, 
+   3.7710922107377253`*^9, 3.7710922516917896`*^9, 3.7710926743749332`*^9, 
+   3.7710927807093754`*^9, 3.7710929758605776`*^9}]
+}, Open  ]]
 },
-WindowSize->{703, 600},
+WindowSize->{1481, 600},
 WindowMargins->{{Automatic, 94}, {Automatic, 0}},
 FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
 StyleDefinitions->"Default.nb"
@@ -198,17 +261,16 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 668, 15, 72, "Input"],
-Cell[1228, 37, 3161, 81, 292, "Input"],
+Cell[557, 20, 668, 15, 31, "Input"],
+Cell[1228, 37, 5221, 130, 292, "Input"],
 Cell[CellGroupData[{
-Cell[4414, 122, 773, 15, 72, "Input"],
-Cell[5190, 139, 845, 12, 30, "Output"]
+Cell[6474, 171, 1159, 24, 31, "Input"],
+Cell[7636, 197, 1173, 16, 30, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6072, 156, 445, 11, 52, "Input"],
-Cell[6520, 169, 670, 9, 30, "Output"]
-}, Open  ]],
-Cell[7205, 181, 96, 1, 31, "Input"]
+Cell[8846, 218, 521, 11, 31, "Input"],
+Cell[9370, 231, 962, 13, 30, "Output"]
+}, Open  ]]
 }
 ]
 *)

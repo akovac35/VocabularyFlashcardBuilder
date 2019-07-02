@@ -12,11 +12,19 @@
 <label for='upload_file'>Upload unknown word list:</label>
 <input type='file' id='upload_file' />
 <br>
+<label>Please be patient - word definitions are loaded synchronously and with pauses in between - open browser dev. tools (F12) to monitor progress.</label>
+<br>
 <br>
 <label for='unknown_words'>Unknown words:</label>
 <table id="unknown_words"/>
 
 <script>
+// Necessary to prevent 429 errors
+var sleepBetweenRetryMs = 10000;
+var wordnikApiKey1 = "c23b746d074135dc9500c0a61300a3cb7647e53ec2b9b658e";
+var wordnikApiKey2 = "48dd829661f515d5abc0d03197a00582e888cc7da2484d5c7";
+
+/*******************************************************************/
 $("#upload_file").bind("change", function() {
   var files = $(this).prop('files');
   if (
@@ -41,8 +49,11 @@ processFileContents = function(file) {
 
   contents = contents.split('\n');
   var words = [];
-  for (var i = 0, len = contents.length; i < len; i++) {
-    var requestUrl = "https://api.wordnik.com/v4/word.json/" + contents[i] + "/definitions?limit=200&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=c23b746d074135dc9500c0a61300a3cb7647e53ec2b9b658e";
+  for (var i = 0, len = contents.length; i < len; i++) { 
+	console.log("Processing word:" + contents[i]);
+	var wordnikApiKey = wordnikApiKey1;
+	if(i%2 == 0) wordnikApiKey = wordnikApiKey2;
+	var requestUrl = "https://api.wordnik.com/v4/word.json/" + contents[i] + "/definitions?limit=200&includeRelated=false&sourceDictionaries=all&useCanonical=true&includeTags=false&api_key=" + wordnikApiKey;
     var word = processWord(requestUrl);
     if(word && word.length) {
     words[words.length] = word;
@@ -59,19 +70,37 @@ processWord = function(requestUrl) {
     async: false
   });
   var word = [];
-  $.getJSON(requestUrl, function(data) {
-    //console.log(data);
-    $.each(data, function(key, val) {
-      //console.log(val);
-      if (val && val.text) {
-        var definition = [];
-        definition[0] = val.word;
-        definition[1] = val.partOfSpeech;
-        definition[2] = val.text;
-        word[word.length] = definition;
-      }
-    });
-  });
+  var tryCount = 0;
+	var retryLimit = 5;
+	$.ajax({
+		url : requestUrl,
+		type : 'GET',
+		success : function(data) {
+			$.each(data, function(key, val) {
+			  //console.log(val);
+			  if (val && val.text) {
+				var definition = [];
+				definition[0] = val.word;
+				definition[1] = val.partOfSpeech;
+				definition[2] = val.text.replace(/<[^>]+>|<\/[^>]+>/gi,"");
+				definition[2] = definition[2].replace(/”|“/g,"'");
+				definition[2] = definition[2].replace("—","-");
+				word[word.length] = definition;
+			  }
+			});
+		},
+		error : function(xhr, textStatus, errorThrown ) {
+			// Retry if request limit was hit or timeout occurred
+			if (textStatus == 'timeout' || xhr.status == 429) {
+				tryCount++;
+				sleep(sleepBetweenRetryMs);
+				if (tryCount <= retryLimit) {
+					//try again
+					$.ajax(this);
+				}
+			}
+		}
+	});
   //console.log(word);
   return word;
 }
@@ -104,6 +133,10 @@ downloadFile = function(strContents, fileName) {
   anchor.click();
 }
 
+sleep = function(delay) {
+	var start = new Date().getTime();
+	while (new Date().getTime() < start + delay);
+}
 </script>
 
 </body>
