@@ -85,6 +85,8 @@ processWord = function(requestUrl) {
 				definition[2] = val.text.replace(/<[^>]+>|<\/[^>]+>/gi,"");
 				definition[2] = definition[2].replace(/”|“/g,"'");
 				definition[2] = definition[2].replace("—","-");
+				definition[2] = definition[2].replace('"',"'");
+				definition[2] = definition[2].replace("\t"," ");
 				word[word.length] = definition;
 			  }
 			});

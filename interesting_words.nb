@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      7942,        206]
-NotebookOptionsPosition[      7472,        186]
-NotebookOutlinePosition[      7816,        201]
-CellTagsIndexPosition[      7773,        198]
+NotebookDataLength[      8036,        207]
+NotebookOptionsPosition[      7566,        187]
+NotebookOutlinePosition[      7910,        202]
+CellTagsIndexPosition[      7867,        199]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -181,11 +181,12 @@ interesting_words.txt\"\>"], "Output",
    3.770809293275673*^9, 3.770809392154077*^9, 3.7708097624871306`*^9, 
    3.770825834471092*^9, 3.7708273341909785`*^9, 3.7708285108227835`*^9, 
    3.771086233671677*^9, 3.7710862729932575`*^9, 3.7710907921601534`*^9, 
-   3.771091100079536*^9, 3.771091709673868*^9}]
+   3.771091100079536*^9, 3.771091709673868*^9, 3.771407589481986*^9, 
+   3.7714368810286546`*^9, 3.771437062240786*^9, 3.771488037977559*^9}]
 }, Open  ]]
 },
 WindowSize->{1480, 600},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowMargins->{{0, Automatic}, {Automatic, 8}},
 FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
 StyleDefinitions->"Default.nb"
 ]
@@ -206,7 +207,7 @@ Cell[3860, 102, 1794, 40, 72, "Input"],
 Cell[5657, 144, 378, 9, 31, "Input"],
 Cell[CellGroupData[{
 Cell[6060, 157, 553, 12, 31, "Input"],
-Cell[6616, 171, 840, 12, 30, "Output"]
+Cell[6616, 171, 934, 13, 30, "Output"]
 }, Open  ]]
 }
 ]

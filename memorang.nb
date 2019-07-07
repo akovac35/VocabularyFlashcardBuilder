@@ -1,0 +1,370 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     13147,        361]
+NotebookOptionsPosition[     12704,        342]
+NotebookOutlinePosition[     13051,        357]
+CellTagsIndexPosition[     13008,        354]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"https", ":"}], "//", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"mathematica", ".", "stackexchange", ".", "com"}], "/", 
+        "questions"}], "/", "201672"}], "/", "how"}], "-", "to", "-", 
+     "convert", "-", "diagonal", "-", "matrix", "-", "to", "-", "rectangular",
+      "-", "matrix"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ClearAll", "[", "toRectangularMatrix", "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"toRectangularMatrix", "=", 
+     RowBox[{
+      RowBox[{"Module", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"blocks", "=", 
+          RowBox[{"Replace", "[", 
+           RowBox[{
+            RowBox[{"Diagonal", "[", "#", "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"x_", "?", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"ArrayDepth", "@", "#"}], "\[Equal]", "0"}], "&"}],
+                  ")"}]}], "\[RuleDelayed]", 
+               RowBox[{"{", 
+                RowBox[{"{", "x", "}"}], "}"}]}], ",", 
+              RowBox[{
+               RowBox[{"x_", "?", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"ArrayDepth", "@", "#"}], "\[Equal]", "1"}], "&"}],
+                  ")"}]}], "\[RuleDelayed]", 
+               RowBox[{"{", "x", "}"}]}]}], "}"}], ",", "1"}], "]"}]}], "}"}],
+         ",", 
+        RowBox[{"SparseArray", "[", 
+         RowBox[{
+          RowBox[{"Band", "[", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "1"}], "}"}], "]"}], "\[Rule]", "blocks"}], 
+         "]"}]}], "]"}], "&"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.7714690257726336`*^9, 3.7714690257746325`*^9}, {
+  3.7714691213910584`*^9, 3.771469170280775*^9}, {3.771469221636201*^9, 
+  3.7714692768650417`*^9}, {3.7714772449692483`*^9, 3.7714772717054825`*^9}, {
+  3.771477535906315*^9, 3.7714775483867574`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Prepare", " ", "memorang", " ", "table"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"allTerms", "=", 
+     RowBox[{"interestingWordsDefinitions", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "1", ",", "1", ",", "1"}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"allTags", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringJoin", "[", 
+        RowBox[{"Riffle", "[", 
+         RowBox[{"#", ",", "\"\< \>\""}], "]"}], "]"}], "&"}], "/@", 
+      RowBox[{"Flatten", "[", 
+       RowBox[{
+        RowBox[{"interestingWordsDefinitions", "[", 
+         RowBox[{"[", 
+          RowBox[{"All", ",", "All", ",", "1", ",", 
+           RowBox[{"2", ";;"}]}], "]"}], "]"}], ",", "1"}], "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"allTermDefinitions", "=", 
+     RowBox[{
+      RowBox[{"DiagonalMatrix", "[", 
+       RowBox[{"Hold", "/@", 
+        RowBox[{"interestingWordsDefinitions", "[", 
+         RowBox[{"[", 
+          RowBox[{"All", ",", "All", ",", "2"}], "]"}], "]"}]}], "]"}], "//", 
+      "ReleaseHold"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"allTermDefinitions", "=", 
+     RowBox[{"Replace", "[", 
+      RowBox[{
+       RowBox[{"Normal", "[", 
+        RowBox[{"toRectangularMatrix", "@", "allTermDefinitions"}], "]"}], 
+       ",", 
+       RowBox[{"0", "\[Rule]", "\"\<\>\""}], ",", "2"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"memorangTable", "=", 
+     RowBox[{"MapThread", "[", 
+      RowBox[{"Prepend", ",", 
+       RowBox[{"{", 
+        RowBox[{"allTermDefinitions", ",", "allTerms"}], "}"}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"memorangTable", "=", 
+     RowBox[{"Prepend", "[", 
+      RowBox[{"memorangTable", ",", 
+       RowBox[{"Prepend", "[", 
+        RowBox[{"allTags", ",", "\"\<Terms\>\""}], "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "For", " ", "exporting", " ", "to", " ", "TSV", " ", "file", " ", 
+      "format"}], ",", " ", 
+     RowBox[{
+     "no", " ", "tabs", " ", "should", " ", "be", " ", "present", " ", "in", 
+      " ", "the", " ", "table", " ", "values"}]}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"memorangTable", "=", 
+     RowBox[{"Map", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringReplace", "[", 
+         RowBox[{"#", ",", 
+          RowBox[{"\"\<\\t\>\"", "\[Rule]", "\"\< \>\""}]}], "]"}], "&"}], 
+       ",", "memorangTable", ",", 
+       RowBox[{"{", "2", "}"}]}], "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGCQAGIQ/SL1WvUpiTeOKnqPGkH0v51HOkH0rusi/WC+ussq
+EP1u1vaNIHrB1trDyZJvHNn+NIHpsqmTzFOAtMSpAhsQzfa8/HwqkM5zUroI
+ov06XlwB0S6x56+D6De7NT6C6P1z6j6DaJ/f6uJpQPrfWxMwrXlkhTyI7kv5
+rwCibx36pQ6iEy5v1QLRc1U9UguAdP7BY+kg+syE499A9B7ZJT9ANPdcjb8g
+OiKh8j+Ilr39xLgISM/reGUCondluB9pANJBsc0nQLSZBvMdEL0of/VdEK13
+49bCRiD9iCtmCYj+Hr57P4i2M315AEQvnb74eCuQ/uV3CkJLep4F0a+WRIPp
+OZX+F0H0kbKpl0G02F/h1yB62byDYNqtN66xE0hv232lCUQDAF5Tw6s=
+  "]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Partition", " ", "the", " ", "table", " ", "to", " ", "smaller", " ", 
+    "tables", " ", "of", " ", "50", " ", "terms"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"memorangLength", "=", "50"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "We", " ", "are", " ", "skipping", " ", "here", " ", "the", " ", "firt", 
+      " ", "row", " ", "and", " ", "first", " ", "column"}], "..."}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"subtableIndices", "=", 
+     RowBox[{"Position", "[", 
+      RowBox[{
+       RowBox[{"memorangTable", "[", 
+        RowBox[{"[", 
+         RowBox[{
+          RowBox[{"2", ";;"}], ",", 
+          RowBox[{"2", ";;"}]}], "]"}], "]"}], ",", 
+       RowBox[{"Except", "[", "\"\<\>\"", "]"}], ",", 
+       RowBox[{"{", "2", "}"}], ",", 
+       RowBox[{"Heads", "\[Rule]", "False"}]}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"subtableIndices", "=", 
+     RowBox[{"Reverse", "[", 
+      RowBox[{"DeleteDuplicates", "[", 
+       RowBox[{
+        RowBox[{"Reverse", "[", "subtableIndices", "]"}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#2", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", 
+          RowBox[{"#1", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "&"}]}], "]"}], "]"}]}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{"subtableIndices", "=", 
+     RowBox[{"DeleteDuplicates", "[", 
+      RowBox[{"Append", "[", 
+       RowBox[{
+        RowBox[{"subtableIndices", "[", 
+         RowBox[{"[", 
+          RowBox[{";;", ";;", "memorangLength"}], "]"}], "]"}], ",", 
+        RowBox[{"subtableIndices", "[", 
+         RowBox[{"[", 
+          RowBox[{"-", "1"}], "]"}], "]"}]}], "]"}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"subtableIndices", "=", 
+     RowBox[{"Partition", "[", 
+      RowBox[{"subtableIndices", ",", "2", ",", "1"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"toSubTable", "[", "indices_", "]"}], ":=", 
+     RowBox[{"(*", 
+      RowBox[{
+      "Remember", " ", "we", " ", "have", " ", "skipped", " ", "the", " ", 
+       "first", " ", "row", " ", "and", " ", "column", " ", "in", " ", 
+       "subtableIndices"}], "*)"}], 
+     RowBox[{"Prepend", "[", 
+      RowBox[{
+       RowBox[{"MapThread", "[", 
+        RowBox[{"Prepend", ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"memorangTable", "[", 
+            RowBox[{"[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{"indices", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "1"}], "]"}], "]"}], "+", "1"}], ";;", 
+               RowBox[{"indices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"2", ",", "1"}], "]"}], "]"}]}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"indices", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"1", ",", "2"}], "]"}], "]"}], "+", "1"}], ";;", 
+               RowBox[{"indices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"2", ",", "2"}], "]"}], "]"}]}]}], "]"}], "]"}], ",", 
+           RowBox[{"allTerms", "[", 
+            RowBox[{"[", 
+             RowBox[{
+              RowBox[{"indices", "[", 
+               RowBox[{"[", 
+                RowBox[{"1", ",", "1"}], "]"}], "]"}], ";;", 
+              RowBox[{
+               RowBox[{"indices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"2", ",", "1"}], "]"}], "]"}], "-", "1"}]}], "]"}], 
+            "]"}]}], "}"}]}], "]"}], ",", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"memorangTable", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+          RowBox[{"allTags", "[", 
+           RowBox[{"[", 
+            RowBox[{
+             RowBox[{"indices", "[", 
+              RowBox[{"[", 
+               RowBox[{"1", ",", "2"}], "]"}], "]"}], ";;", 
+             RowBox[{
+              RowBox[{"indices", "[", 
+               RowBox[{"[", 
+                RowBox[{"2", ",", "2"}], "]"}], "]"}], "-", "1"}]}], "]"}], 
+           "]"}]}], "}"}], "]"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"saveSubTable", "[", 
+      RowBox[{"table_", ",", "index_"}], "]"}], ":=", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+          RowBox[{"\"\<flashcards\\\\memorang\>\"", "<>", 
+           RowBox[{"ToString", "[", 
+            RowBox[{"index", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], "]"}], "<>", "\"\<.xls\>\""}]}], 
+         "}"}], "]"}], ",", "table", ",", "\"\<XLS\>\""}], "]"}]}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.771485172411627*^9, 3.771485173062024*^9}, {
+   3.7714852190634127`*^9, 3.7714852512745757`*^9}, 3.771485391643547*^9, {
+   3.7714854373022523`*^9, 3.7714854395092125`*^9}, {3.7714858471625957`*^9, 
+   3.7714858488000836`*^9}, {3.771486726591034*^9, 3.7714868664404907`*^9}, 
+   3.7714869211458163`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Save", " ", "subtables"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"MapIndexed", "[", 
+   RowBox[{"saveSubTable", ",", 
+    RowBox[{"toSubTable", "/@", "subtableIndices"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7714341165907683`*^9, 3.77143417861932*^9}, {
+   3.7714342390393524`*^9, 3.771434239499926*^9}, {3.7714342834062552`*^9, 
+   3.77143429089332*^9}, {3.771434530581825*^9, 3.7714345419702764`*^9}, {
+   3.771434793292472*^9, 3.7714348402089996`*^9}, 3.7714371016982355`*^9, {
+   3.7714371538139706`*^9, 3.7714371636528463`*^9}, {3.7714858770139484`*^9, 
+   3.771485893269891*^9}, {3.771485953277317*^9, 3.7714859618453655`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"D:\\\\tmp\\\\VocabularyFlashcardBuilder\\\\flashcards\\\\\
+memorang1.xls\"\>", 
+   ",", "\<\"D:\\\\tmp\\\\VocabularyFlashcardBuilder\\\\flashcards\\\\\
+memorang2.xls\"\>", 
+   ",", "\<\"D:\\\\tmp\\\\VocabularyFlashcardBuilder\\\\flashcards\\\\\
+memorang3.xls\"\>", 
+   ",", "\<\"D:\\\\tmp\\\\VocabularyFlashcardBuilder\\\\flashcards\\\\\
+memorang4.xls\"\>", 
+   ",", "\<\"D:\\\\tmp\\\\VocabularyFlashcardBuilder\\\\flashcards\\\\\
+memorang5.xls\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.771434182593638*^9, {3.7714342407957172`*^9, 3.7714342620230618`*^9}, 
+   3.771434300249652*^9, 3.7714345468277693`*^9, 3.771434809328613*^9, {
+   3.7714371498716173`*^9, 3.7714371725516143`*^9}, 3.771467507121022*^9, 
+   3.7714693349802094`*^9, 3.771477964774056*^9, 3.771485899408201*^9, 
+   3.771486654265027*^9, 3.7714867711077957`*^9, 3.7714869316420937`*^9, {
+   3.7714883096548977`*^9, 3.771488317186919*^9}}]
+}, Open  ]]
+},
+WindowSize->{705, 727},
+WindowMargins->{{Automatic, 166}, {Automatic, -33}},
+FrontEndVersion->"8.0 for Microsoft Windows (64-bit) (February 23, 2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 2094, 56, 152, "Input"],
+Cell[2654, 78, 3139, 85, 272, "Input"],
+Cell[5796, 165, 5213, 138, 452, "Input"],
+Cell[CellGroupData[{
+Cell[11034, 307, 696, 12, 52, "Input"],
+Cell[11733, 321, 955, 18, 107, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
