@@ -18,3 +18,4 @@ Word processing is in part manual and iterative:
 5. edit the files in the **external_definitions** folder to provide word definitions for supplementing Mathematica sources,
 6. GOTO #2 to process the words again.
 
+Finally, interesting word definitions are ready to be used for generating a flashcard deck. An example is provided for Memorang, execute the contents of **Memorang.nb** and review the results in the **flashcards** folder.
