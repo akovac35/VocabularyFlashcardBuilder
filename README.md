@@ -1,5 +1,5 @@
 # VocabularyFlashcardBuilder
-TODO Need to update this description.
+TODO Need to update instructions!!
 
 A small project to build English vocabulary expanding flashcards from interesting literature. Word definitions are fetched from online and custom sources. Initial set of common English words is provided for word filtering. It is possible to define a custom set of words as an additional exclusion filter.
 
