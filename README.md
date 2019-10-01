@@ -3,10 +3,10 @@ A small project to build English vocabulary expanding flashcards from interestin
 
 ## Usage instructions
 Review the contents of the following folders first:
-* **input_text** - contains two files, **directly_included_words.txt**, which is a list of words to be directly included for processing, and **ctmu_words.txt**, which is a list of words from literature to be filtered and included processed; this file has a custom name which you can change,
+* **input_text** - contains two files, **directly_included_words.txt**, which is a list of words to be directly included for processing, and **ctmu_words.txt**, which is a list of words from literature to be filtered and processed; this file has a custom name which you can change,
 * **filters** - contains files with words to be excluded from processing,
 * **external_definitions** - contains files with word definitions, to be used for supplementing Mathematica sources,
-* **results** - contains processing results; a file containing a list of all processed words (**interesting_words.txt**), a file containing definitions for interesting words (**interesting_words_definitions.txt**) and a file containing a list of words whose definitions were not found (**unknown_words.txt**),
+* **results** - contains processing results; a file containing a list of all processed words (**interesting_words.txt**), a file containing definitions for processed words (**interesting_words_definitions.txt**) and a file containing a list of words whose definitions were not found (**unknown_words.txt**),
 **flashcards** - contains generated flashcard files.
 
 Word processing is in part manual and iterative:
