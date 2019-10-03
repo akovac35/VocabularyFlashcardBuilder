@@ -12,7 +12,7 @@ Review the contents of the following folders first:
 Word processing is in part manual and iterative:
 
 1. Prepare a list of all distinct words to be processed by editing the files in the **input_text** folder. Words to be directly included for processing should be listed in the **directly_included_words.txt** file. The **ctmu_words.txt** file, which can be renamed at this point, contains a list of distinct words from a book or a body of work,
-2. execute the contents of **interesting_words.nb** - you may want to replace the custom file name **ctmu_words.txt** with your actual file name at this step, the parameter is the first line in the **interesting_words.nb** - and **generate_definitions.nb**,
+2. execute the contents of **interesting_words.nb** - you may want to replace the custom file name **ctmu_words.txt** with your actual file name at this step, the parameter is the first line in the **interesting_words.nb**. Execute the contents of **generate_definitions.nb** as well,
 3. review the contents of the **results** folder, **EXIT** if satisfied with the results,
 4. edit the files in the **filters** folder to exclude words which are not interesting to you,
 5. edit the files in the **external_definitions** folder to provide word definitions for supplementing Mathematica sources,
